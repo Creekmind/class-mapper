@@ -6,7 +6,12 @@ export const mappingMetadataKey = Symbol("cm:mapping:meta");
 export function getOpts(target: Object): IFieldOpts[] {
   const opts = [];
   getProperties(target).forEach((key) => {
-    opts.push(getMeta(target, key));
+    const meta = getMeta(target, key);
+    if (!meta) {
+      return;
+    }
+
+    opts.push(meta);
   });
   return opts;
 }
