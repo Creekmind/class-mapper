@@ -116,7 +116,7 @@ describe('Reflect', () => {
 
 describe('Mapper', () => {
   describe('#unbox', () => {
-    it('should unbox raw object to decorated properties with correct types', function () {
+    it('should unbox raw object to decorated properties with correct types', () => {
       const raw = {
         id: '31',
         name: 33441,
@@ -131,7 +131,7 @@ describe('Mapper', () => {
       assert.strictEqual(target.displayName, undefined);
     });
 
-    it('should unbox raw object with nested objects to decorated properties with correct types', function () {
+    it('should unbox raw object with nested objects to decorated properties with correct types', () => {
       const raw = {
         id: '31',
         values: [{
@@ -158,7 +158,7 @@ describe('Mapper', () => {
   });
 
   describe('#box', () => {
-    it('should box decorated properties', function () {
+    it('should box decorated properties', () => {
       const target = new PrimitiveFields(31, 'Gordon');
       target.displayName = 'Gordon Freeman';
       const raw = box<PrimitiveFields>(target);
@@ -168,7 +168,7 @@ describe('Mapper', () => {
       assert.strictEqual(raw.displayName, undefined);
     });
 
-    it('should box nested object', function () {
+    it('should box nested object', () => {
       const target = new WithNestedObject(23);
       target.id = 55;
       target.values = [

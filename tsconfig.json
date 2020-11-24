@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "downlevelIteration": true,
-    "outDir": "./dist/out",
+    "outDir": "./dist",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

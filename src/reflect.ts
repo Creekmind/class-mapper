@@ -24,7 +24,7 @@ export function addProperty(target: Object, propertyKey: string, propertyType: F
   const opts: IFieldOpts = {
     name: propertyKey,
     type: propertyType,
-    cls: cls
+    cls
   };
 
   setMeta(target, propertyKey, opts);
