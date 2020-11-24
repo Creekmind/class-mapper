@@ -1,16 +1,16 @@
 {
   "name": "@cmind/class-mapper",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "author": "creekmind <creekmind@gmail.com>",
   "scripts": {
-    "mocha": "ts-mocha src/**/*.spec.ts -p tsconfig.json"
+    "mocha": "ts-mocha src/**/*.spec.ts -p tsconfig.json",
+    "build": "tsc",
+    "copyfiles": "cp -rf package.json dist && cp -rf README.md dist ",
+    "deploy": "npm run copyfiles && cd dist && npm publish"
   },
   "license": "MIT",
-  "files": [
-    "dist/**/*"
-  ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "keywords": [
     "class",
     "object",
