@@ -18,6 +18,10 @@
     "types",
     "mapping"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Creekmind/class-mapper"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.4",

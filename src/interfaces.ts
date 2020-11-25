@@ -2,6 +2,8 @@ export type FieldType = 'any' | 'number' | 'string' | 'boolean' | 'date' | 'obje
 
 export interface IFieldOpts {
   name: string;
-  type: FieldType;
+  type?: FieldType;
   cls?: new(..._: any) => any;
+  skipBoxing?: boolean;
+  skipUnboxing?: boolean;
 }

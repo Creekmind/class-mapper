@@ -16,10 +16,8 @@ export function getOpts(target: Object): IFieldOpts[] {
   return opts;
 }
 
-export function addProperty(target: Object, propertyKey: string, propertyType: FieldType, cls: new(..._: any) => any = null) {
-  const fields = getProperties(target);
-  fields.add(propertyKey);
-  Reflect.defineMetadata(fieldsMetadataKey, fields, target);
+export function setPropertyType(target: Object, propertyKey: string, propertyType: FieldType, cls: new(..._: any) => any = null) {
+  addProperty(target, propertyKey);
 
   const opts: IFieldOpts = {
     name: propertyKey,
@@ -30,14 +28,50 @@ export function addProperty(target: Object, propertyKey: string, propertyType: F
   setMeta(target, propertyKey, opts);
 }
 
+export function setPropertySkipBoxing(target: Object, propertyKey: string) {
+  addProperty(target, propertyKey);
+
+  const opts: IFieldOpts = {
+    name: propertyKey,
+    skipBoxing: true
+  }
+
+  setMeta(target, propertyKey, opts);
+}
+
+export function setPropertySkipUnboxing(target: Object, propertyKey: string) {
+  addProperty(target, propertyKey);
+
+  const opts: IFieldOpts = {
+    name: propertyKey,
+    skipUnboxing: true
+  }
+
+  setMeta(target, propertyKey, opts);
+}
+
+function addProperty(target: Object, propertyKey: string) {
+  const fields = getProperties(target);
+  if (fields.has(propertyKey)) {
+    return;
+  }
+
+  fields.add(propertyKey);
+  Reflect.defineMetadata(fieldsMetadataKey, fields, target);
+}
+
 function getProperties(target: Object): Set<string> {
   return Reflect.getMetadata(fieldsMetadataKey, target) || new Set<string>();
 }
 
-function setMeta(target: Object, propertyKey: string, opts: IFieldOpts) {
+export function setMeta(target: Object, propertyKey: string, opts: IFieldOpts) {
+  const meta = getMeta(target, propertyKey);
+  if (meta != null) {
+    Object.assign(opts, meta)
+  }
   Reflect.defineMetadata(mappingMetadataKey, opts, target, propertyKey)
 }
 
-function getMeta(target: Object, propertyKey: string): IFieldOpts {
+export function getMeta(target: Object, propertyKey: string): IFieldOpts {
   return Reflect.getMetadata(mappingMetadataKey, target, propertyKey)
 }

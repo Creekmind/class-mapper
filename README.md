@@ -71,4 +71,7 @@ string();                  // convert input value to string (value.toString())
 boolean();                 // convert input value to boolean (!!value)
 object(cls: new() => any); // unbox input value to cls
 array(cls: new() => any);  // create array and unbox input each element of input value to cls
+
+skipBoxing();              // Skip field on boxing
+skipUnboxing();            // Skip field on unboxing 
 ``` 

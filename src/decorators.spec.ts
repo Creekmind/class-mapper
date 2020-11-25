@@ -3,116 +3,7 @@ import { getOpts } from './reflect';
 import { assert } from 'chai';
 import { box, unbox } from './index';
 import { it } from 'mocha';
-
-class SingleAnyField {
-  @any()
-  payload: any;
-}
-
-class ChildNameField extends SingleAnyField {
-  @string()
-  name: string;
-
-  constructor(name) {
-    super();
-    this.name = name;
-  }
-}
-
-class SubChildField extends ChildNameField {
-  @date()
-  createdAt: Date;
-
-  constructor(name) {
-    super(name);
-    this.createdAt = new Date();
-  }
-}
-
-class ChildIdField extends SingleAnyField {
-  @number()
-  id: number;
-
-  constructor(id: number) {
-    super();
-    this.id = id;
-  }
-}
-
-class PrimitiveFields {
-  @number()
-  id: number;
-  @string()
-  name: string;
-  @boolean()
-  enabled: boolean;
-
-  displayName: string;
-
-  constructor(id: number, name: string, enabled = true) {
-    this.id = id;
-    this.name = name;
-    this.enabled = enabled;
-  }
-}
-
-class WithNestedObject {
-  @number()
-  id: number;
-  @array(PrimitiveFields)
-  values: PrimitiveFields[];
-
-  constructor(id: number) {
-    this.id = id;
-  }
-}
-
-describe('Reflect', () => {
-  describe('#getOpts', () => {
-
-    it('should have one any property', () => {
-      const target = new SingleAnyField();
-      const opts = getOpts(target);
-      assert.equal(opts.length, 1);
-      assert.equal(opts[0].type, 'any');
-    });
-
-    it('should have string, number and boolean properties', () => {
-      const target = new PrimitiveFields(null, null, null);
-      const opts = getOpts(target);
-      assert.equal(opts.length, 3);
-      assert.equal(opts[0].type, 'number');
-      assert.equal(opts[1].type, 'string');
-      assert.equal(opts[2].type, 'boolean');
-    });
-
-    it('should have two properties: string and any', () => {
-      const target = new ChildNameField('Alex');
-      const opts = getOpts(target);
-      assert.equal(opts.length, 2);
-      assert.equal(opts[0].type, 'any');
-      assert.equal(opts[1].type, 'string');
-    });
-
-    it('should have two properties: number and any', () => {
-      const target = new ChildIdField(4561);
-      const opts = getOpts(target);
-      assert.equal(opts.length, 2);
-      assert.equal(opts[0].type, 'any');
-      assert.equal(opts[1].type, 'number');
-    });
-
-    it('should have three properties: date, number and any', () => {
-      const target = new SubChildField('Lamarr');
-      const opts = getOpts(target);
-      assert.equal(opts.length, 3);
-      assert.equal(opts[0].type, 'any');
-      assert.equal(opts[1].type, 'date');
-      assert.equal(opts[2].type, 'string');
-    });
-
-  });
-});
+import { PrimitiveFields, SkipField, WithNestedObject } from './test-data/classes';
 
 describe('Mapper', () => {
   describe('#unbox', () => {
@@ -155,6 +46,17 @@ describe('Mapper', () => {
       assert.strictEqual(target.values[1].id, 2);
       assert.strictEqual(target.values[1].name, 'Barney');
     });
+
+    it('should skip property on unboxing', () => {
+      const meta = {};
+      const target = unbox<SkipField>({
+        id: 31,
+        meta: meta
+      }, SkipField);
+
+      assert.strictEqual(target.id, 31)
+      assert.strictEqual(target.meta, undefined)
+    });
   });
 
   describe('#box', () => {
@@ -182,6 +84,17 @@ describe('Mapper', () => {
       assert.strictEqual(raw.values.length, 2);
       assert.strictEqual(raw.values[0].id, target.values[0].id)
       assert.strictEqual(raw.values[1].id, target.values[1].id)
+    });
+
+    it('should skip property on boxing', () => {
+      const target = new SkipField();
+      const meta = {};
+      target.id = 31;
+      target.meta = meta;
+
+      const raw = box<SkipField>(target);
+      assert.strictEqual(raw.id, undefined)
+      assert.strictEqual(raw.meta, meta)
     });
   });
 })

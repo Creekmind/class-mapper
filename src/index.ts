@@ -6,6 +6,10 @@ export function box<T>(object: T): Raw {
   const raw: Raw = {};
 
   for (const property of getOpts(object)) {
+    if (property.skipBoxing) {
+      continue;
+    }
+
     raw[property.name] = object[property.name];
   }
 
@@ -16,6 +20,10 @@ export function unbox<T>(raw: Raw, factory: new(..._: any) => T): T {
   const result = new factory();
 
   for (const property of getOpts(result)) {
+    if (property.skipUnboxing) {
+      continue;
+    }
+
     const rawValue = raw[property.name];
 
     if (rawValue == null) {
@@ -25,7 +33,8 @@ export function unbox<T>(raw: Raw, factory: new(..._: any) => T): T {
 
     switch (property.type) {
       case 'any':
-        continue;
+        result[property.name] = rawValue;
+        break;
       case 'string':
         result[property.name] = rawValue.toString();
         break;
