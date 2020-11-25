@@ -1,6 +1,6 @@
 {
   "name": "@cmind/class-mapper",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "creekmind <creekmind@gmail.com>",
   "scripts": {
     "mocha": "ts-mocha src/**/*.spec.ts -p tsconfig.json",

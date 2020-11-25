@@ -19,7 +19,7 @@ describe('Reflect', () => {
 
       setMeta(container, propertyKey, {
         name: propertyKey,
-        skip: 'box'
+        skipBoxing: true
       });
 
       meta = getMeta(container, propertyKey);
