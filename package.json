@@ -22,13 +22,15 @@
     "type": "git",
     "url": "https://github.com/Creekmind/class-mapper"
   },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.4",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "reflect-metadata": "^0.1.13",
     "ts-mocha": "^8.0.0",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.3",
