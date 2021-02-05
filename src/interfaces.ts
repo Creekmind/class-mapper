@@ -1,4 +1,4 @@
-export type FieldType = 'any' | 'number' | 'string' | 'boolean' | 'date' | 'object' | 'array';
+export type FieldType = 'any' | 'number' | 'string' | 'boolean' | 'epoch' | 'object' | 'array';
 
 export interface IFieldOpts {
   name: string;

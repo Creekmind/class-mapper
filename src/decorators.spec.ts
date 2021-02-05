@@ -1,5 +1,3 @@
-import { any, array, boolean, date, number, object, string } from './decorators';
-import { getOpts } from './reflect';
 import { assert } from 'chai';
 import { box, unbox } from './index';
 import { it } from 'mocha';
@@ -61,13 +59,15 @@ describe('Mapper', () => {
 
   describe('#box', () => {
     it('should box decorated properties', () => {
-      const target = new PrimitiveFields(31, 'Gordon');
+      const now = new Date();
+      const target = new PrimitiveFields(31, 'Gordon', true, now);
       target.displayName = 'Gordon Freeman';
       const raw = box<PrimitiveFields>(target);
 
       assert.strictEqual(raw.id, target.id);
       assert.strictEqual(raw.name, target.name);
       assert.strictEqual(raw.displayName, undefined);
+      assert.strictEqual(raw.createDate, now.getTime());
     });
 
     it('should box nested object', () => {

@@ -1,4 +1,4 @@
-import { any, array, boolean, date, number, skipBoxing, skipUnboxing, string } from '../decorators';
+import { any, array, boolean, epoch, number, skipBoxing, skipUnboxing, string } from '../decorators';
 
 export class SingleAnyField {
   @any()
@@ -23,7 +23,7 @@ export class ChildNameField extends SingleAnyField {
 }
 
 export class SubChildField extends ChildNameField {
-  @date()
+  @epoch()
   createdAt: Date;
 
   constructor(name) {
@@ -49,13 +49,16 @@ export class PrimitiveFields {
   name: string;
   @boolean()
   enabled: boolean;
+  @epoch()
+  createDate: Date;
 
   displayName: string;
 
-  constructor(id: number, name: string, enabled = true) {
+  constructor(id: number, name: string, enabled = true, createDate = null) {
     this.id = id;
     this.name = name;
     this.enabled = enabled;
+    this.createDate = createDate;
   }
 }
 

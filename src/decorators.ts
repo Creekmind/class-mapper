@@ -25,9 +25,9 @@ export const boolean = () => {
   }
 }
 
-export const date = () => {
+export const epoch = () => {
   return (target: any, propertyKey: string) => {
-    setPropertyType(target, propertyKey, 'date');
+    setPropertyType(target, propertyKey, 'epoch');
   }
 }
 

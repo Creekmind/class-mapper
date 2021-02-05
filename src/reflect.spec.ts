@@ -38,10 +38,11 @@ describe('Reflect', () => {
     it('should have string, number and boolean properties', () => {
       const target = new PrimitiveFields(null, null, null);
       const opts = getOpts(target);
-      assert.equal(opts.length, 3);
+      assert.equal(opts.length, 4);
       assert.equal(opts[0].type, 'number');
       assert.equal(opts[1].type, 'string');
       assert.equal(opts[2].type, 'boolean');
+      assert.equal(opts[3].type, 'epoch');
     });
 
     it('should have two properties: string and any', () => {
@@ -65,7 +66,7 @@ describe('Reflect', () => {
       const opts = getOpts(target);
       assert.equal(opts.length, 3);
       assert.isAtLeast(opts.findIndex(o => o.type =='any'), 0);
-      assert.isAtLeast(opts.findIndex(o => o.type =='date'), 0);
+      assert.isAtLeast(opts.findIndex(o => o.type =='epoch'), 0);
       assert.isAtLeast(opts.findIndex(o => o.type =='string'), 0);
     });
 
