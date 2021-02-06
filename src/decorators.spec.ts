@@ -45,6 +45,16 @@ describe('Mapper', () => {
       assert.strictEqual(target.values[1].name, 'Barney');
     });
 
+    it('should leave default values', () => {
+      const raw = {
+        id: '31',
+      }
+
+      const target = unbox<WithNestedObject>(raw, WithNestedObject);
+      assert.isNotNull(target.values);
+      assert.isEmpty(target.values);
+    });
+
     it('should skip property on unboxing', () => {
       const meta = {};
       const target = unbox<SkipField>({

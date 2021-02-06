@@ -66,7 +66,7 @@ export class WithNestedObject {
   @number()
   id: number;
   @array(PrimitiveFields)
-  values: PrimitiveFields[];
+  values: PrimitiveFields[] = [];
 
   constructor(id: number) {
     this.id = id;

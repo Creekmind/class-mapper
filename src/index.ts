@@ -58,7 +58,6 @@ export function unbox<T>(raw: Raw, factory: new(..._: any) => T): T {
     const rawValue = raw[property.name];
 
     if (rawValue == null) {
-      result[property.name] = null;
       continue;
     }
 
