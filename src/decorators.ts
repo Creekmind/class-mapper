@@ -31,13 +31,13 @@ export const epoch = () => {
   }
 }
 
-export const object = (cls: new(..._: any) => {}) => {
+export const object = (cls?: new(..._: any) => {}) => {
   return (target: any, propertyKey: string) => {
     setPropertyType(target, propertyKey, 'object', cls);
   }
 }
 
-export const array = (cls: new(..._: any) => {}) => {
+export const array = (cls?: new(..._: any) => {}) => {
   return (target: any, propertyKey: string) => {
     setPropertyType(target, propertyKey, 'array', cls);
   }
